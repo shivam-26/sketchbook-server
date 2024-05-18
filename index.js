@@ -4,11 +4,13 @@ const { Server } = require("socket.io");
 const cors = require('cors');
 
 const app = express();
+const isDev = app.settings.env === 'devlopment';
+const URL = isDev ? 'http://localhost:3000' : 'https://sketchbook-bkrx-git-master-shivam-pandeys-projects-b77541af.vercel.app/?vercelToolbarCode=Y3OdLBIjU2o-8hT'
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: URL
 }))
 const httpServer = createServer(app);
-const io = new Server(httpServer, { cors: 'http://localhost:3000' });
+const io = new Server(httpServer, { cors: URL });
 
 io.on("connection", (socket) => {
   console.log("server connected")
